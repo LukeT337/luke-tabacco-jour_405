@@ -2,7 +2,7 @@
 title: "UMD Fees"
 date: 9-08-2025
 ---
-
+Luke Tabacco
 Follow along with the demo to learn how to calculate percentage change using R and the Tidyverse. You should get started by loading the tidyverse in a new R block.
 
 
@@ -87,7 +87,7 @@ HINT HINT HINT
 
 Write a few sentences about what you found in the data. What's the story here?
 
-
+In the data, I found that athletics, as well as recreation services were the highest throughout all the categories. But, the difference between the two is that athletics fees remained exactly the same from fall 2021 to fall 2024, while recreation services fees increased every year from fall 2021 to fall 2024. The story here could be finding out what might be the cause of the recreation service fees increase, compared to the stagnant fees of athletics?
 
 
 
