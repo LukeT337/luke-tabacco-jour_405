@@ -1,5 +1,8 @@
 ---
 title: "Crime Rates"
+
+Luke Tabacco
+
 ---
 
 Follow along with the demo to learn how to calculate crime rates using R and the Tidyverse. We'll also introduce a new library, janitor, which helps make column names easier to work with. You should get started by loading the tidyverse in a new R block, then install and load janitor.
@@ -23,7 +26,7 @@ crimes <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads
 
 ### Task 3: Use janitor to clean up the column names
 
-
+Was told to ignore
 
 ### Task 4: Calculate the total crime rate for each year (picking our unit!)
 
@@ -45,7 +48,7 @@ crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/populat
 
 Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations?
 
-
+In the data, we found that violent crime rates peaked in the 90s. We also found that property crime rates peaked in the late 70s into early 80s. Finally, the most recent data of violent and property crime rates in 2020 are significantly lower than they were in 1975 when the data was first available. This absolutely meets my expectation when looking at the pattern. It helps to ensure that our country has become safer over the last 45 years. 
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
