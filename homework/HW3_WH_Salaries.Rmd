@@ -1,5 +1,8 @@
 ---
 title: "HW3 WH Salaries"
+
+Luke Tabacco
+
 ---
 
 In this assignment, we will be working with a dataset containing information about the salaries of White House staffers as of July 2024.
@@ -9,6 +12,7 @@ In this assignment, we will be working with a dataset containing information abo
 You will need to load the tidyverse library
 
 ```{r}
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/biden_wh_salaries_2024.csv. You will create a dataframe called `wh_salaries` that contains the data from this URL.
@@ -16,6 +20,7 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data and Describe It
 
 ```{r}
+wh_salaries <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/biden_wh_salaries_2024.csv")
 ```
 ### Task 3: Describe the Data
 
@@ -23,11 +28,18 @@ You should examine that dataframe carefully by clicking on it in the Environment
 
 ANSWER HERE
 
+The biggest piece of information that stands out to me from this data was the status of detailees. Some of the detailees make over 200,000 dollars, most if not that much high 100,000's. But, some of the detailees don't make any money, or they make 20k. 
+
 ### Task 4: Calculate the Mean and Median of the Salaries
 
 Write code to calculate the mean and median of the salaries in the dataset using the `summarize()` function. You don't need to make a new dataframe, just display the results.
 
 ```{r}
+
+wh_salaries |> 
+    summarize(mean_salary = mean(salary),
+            median_salary = median(salary)
+)
 
 ```
 
@@ -37,6 +49,13 @@ Take the code you just wrote and add in the minimum and maximum salaries (the fu
 
 ```{r}
 
+wh_salaries |> 
+    summarize(mean_salary = mean(salary),
+            median_salary = median(salary),
+            max_salary = max(salary),
+            min_salary = min(salary)
+)
+
 ```
 
 ### Task 6: Describe the Results
@@ -45,8 +64,14 @@ Write a couple of sentences describing the results of your analysis. What do the
 
 ANSWER HERE
 
+The mean and median salaries are actually very similar to each other. Sitting between 110,000 and 107,000, especially with a maximum salary of over 250,000 and a minimum of 0, this seems like a very viable result from the analysis. If I had to pick one outlier, it would definitely be coming from Michelle Barrans and her salary of $251,258. This is over $60,000 more than the second highest detailee salary. I would not say zero is an outlier because there are 11 employees and detailees that have no salary. 
+
 ### Task 7: Story Idea
 
 Based on the data, what is your best story idea? What is the next step you would take to develop that story idea?
+ 
 
 ANSWER HERE
+
+
+My best story idea coming from this data would be a comparison in salaries between detailees and employees. The next step I would take in developing this story idea would start with finding the mean and median of salaries from both employees and detailees, then compare that data with each other. The next step I would take would involve reaching out to some of the individuals about this list and possibly talk to them about their experiences.
