@@ -1,5 +1,8 @@
 ---
 title: "HW4 MD CityCrime"
+
+Luke Tabacco
+
 ---
 
 In this assignment, we will be working with a dataset of total crimes reported by Maryland cities for two consecutive years. You'll load the data, calculate the violent and property crime rates for each city for both years, and then calculate the percentage change in the crime rates between the two years. You'll also write a short story based on your findings.
@@ -9,6 +12,8 @@ In this assignment, we will be working with a dataset of total crimes reported b
 You will need to load the tidyverse library and the janitor library
 
 ```{r}
+library(tidyverse)
+library(janitor)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv. You will create a dataframe called `md_cities` that contains the data from this URL.
@@ -16,12 +21,20 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data
 
 ```{r}
+md_cities <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv") 
 ```
 ### Task 3: Calculating Rates
 
 Calculate violent and property crime rates for each city for both years using `mutate()`. You'll create four new columns: `violent_rate_2019`, `property_rate_2019`, `violent_rate_2020`, and `property_rate_2020`. You'll need to figure out the proper unit rate, given that there are varying populations. There's no perfect choice; choose the one that works best for you. Save the results to a new dataframe called `md_cities_rates`.
 
 ```{r}
+md_cities_rates <- md_cities |>
+  mutate(
+    violent_rate_2019 = (violent2019 / pop2019) * 10000,
+    property_rate_2019 = (property2019 / pop2019) * 10000,
+    violent_rate_2020 = (violent2020 / pop2020) * 10000,
+    property_rate_2020 = (property2020 / pop2020) * 10000
+  )
 ```
 
 ### Task 4: Describe the Rates
@@ -30,12 +43,21 @@ Examine the new dataframe, `md_cities_rates`, by clicking on it in the Environme
 
 ANSWER HERE
 
+Off first glance, the story here comes from Ocean City, in Worcester County. First of all, looking at the Violent rates of 2019, while Baltimore city sits at the highest rate with 183, Ocean City still sits as the second highest with 131. What's even more shocking about this information is looking at the violent rates for 2020, Ocean City raised by over 100 units, sitting now at 239. Now, looking at property rates for both 2019 and 2020, Ocean City has the highest rate for each of those by well over 100 units. 
+
 
 ### Task 5: Calculate Percentage Change
 
 Let's add two percentage change columns to your dataframe: one for violent crime rates and one for property crime rates. You'll calculate the percentage change between 2019 and 2020 for each city. Save the results to a new dataframe called `md_cities_change`.
 
 ```{r}
+
+md_cities_change <- md_cities |>
+  mutate(
+    pct_change_violent = (violent2020 - violent2019) / violent2019 *100,
+    pct_change_property = (property2020 - property2019) / property2019 * 100
+  )
+
 ```
 
 ### Task 7: Describe Percentage Changes
@@ -44,11 +66,18 @@ Look at the `md_cities_change` dataframe by clicking on it in the Environment ta
 
 ANSWER HERE
 
+The percentage change results are honestly all over the place. The outliers amongst the data makes it harder to follow. For example, looking at Edmonston in Prince George's County, the percent change for violent rate is up 900%. This is so decieving because of the small sample size. There was one report in 2019, and 10 in 2020. The same idea goes for Poolsville. However, a city that's interesting to look at is Frederick. The percentage change for both property rate and violent rate are both negatively greater than almost 90%. Property rate is down 89.9% and violent rate is down 95%. 
+
 ### Task 8: Tell the Best Story
 
 Write up a lede and nutgraf of a story with the _best_ story idea you've found in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
 ANSWER HERE
+
+Violent and proerty rates in Ocean City, Maryland are sky high in the years 2019 and 2020, according to the Maryland city property and violent rate data. 
+
+In 2019, property rate total in Ocean City was 720, giving it a rate of 1036.87. This rate is over 300 units greater than any other city throughout Maryland. Furthermore, in 2020 this rate only grew greater, sitting at 1212.82. Now, looking at the violent rate data in Ocean City, while it might not be the highest throughout Maryland in 2019, it does however have an extremely high rate of 239.67 in 2020.
+
 
 ### Task 9: Save Your Work and Put it on GitHub
 
