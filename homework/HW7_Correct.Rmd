@@ -1,0 +1,103 @@
+---
+title: "HW7_MandMs"
+date: 10/1/2025
+---
+
+Luke Tabacco
+
+In this assignment, you'll be picking up where you left off with the M&Ms activity. You'll load the data and perform some basic statistical analysis. Follow the steps below to complete the assignment.
+
+### Task 1: Load the tidyverse
+
+```{r}
+library(tidyverse)
+```
+
+
+### Task 2: Load an M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
+```{r}
+mm_dataset <- read.csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
+
+
+### Task 3: Sample 5 rows of data from the dataset, and then sample 10 rows, saving each to separate dataframes called sample5 and sample10. Be sure to use set.seed(1234) before you start.
+```{r}
+set.seed(1234)
+mm_dataset <- tibble(
+  red = sample(1:200, 100, replace = TRUE)
+)
+
+head(mm_dataset)
+
+```
+
+```{r}
+sample_5 <- mm_dataset |> 
+  sample_n(5)
+
+```
+
+```{r}
+sample_10 <- mm_dataset |> 
+  sample_n(10)
+
+```
+
+### Task 4: Calculate the mean, median and standard deviation of red M&Ms from each of the samples.
+```{r}
+sample_5 |> summarize(mean=mean(red), median = median(red), sd = sd(red))
+```
+
+```{r}
+sample_10 |> summarize(mean=mean(red), median = median(red), sd = sd(red))
+```
+
+### Task 5: Calculate the mean, median and standard deviation of red M&Ms from the population
+
+```{r}
+mm_dataset |> summarize(mean = mean(red), median = median(red), sd = sd(red))
+
+```
+
+### Task 6: Make three histograms: one each for sample5, sample10 and the original dataset. Include a headline. Use a consistent binwidth.
+
+```{r}
+sample_5 |> 
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 50) +
+  labs(title = "Sample 5")
+```
+```{r}
+sample_10 |> 
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 50) +
+  labs(title = "Sample 10")
+```
+```{r}
+mm_dataset |> 
+  ggplot() + 
+  geom_histogram(aes(x = red), binwidth = 50) +
+  labs(title = "Original Dataset")
+```
+
+
+### Task 7: Answer questions
+
+
+Compare the three sets of means, standard deviations and histograms. Which are more helpful to you in understanding the accuracy of the samples?
+
+A: Starting with sample 5: The mean of this sample set was 98.6, the median was 127, and the standard deviation of the set was 55.69829. Now, looking at the histogram, the data is very skewed to the left. Now, looking at sample 10: The mean of the sample was 105.5, the median was 105.5, and the standard deviation of the set was 56.91563. Furthermore, looking at the histogram, it is very spiked at the 50 and 150 points. Finally, looking at the actual mm_dataset: the mean of the full data is 102.16, the median is 105.5, and the standard deviation is 52.87086. The histogram of the original data set is pretty symmetric, or normally distributed. What helps me the most in understanding the accuracy of the samples is looking at the data on a histogram. I am a very visual learner. 
+
+What does this exercise tell you about the relationship between sample size and estimate accuracy?
+
+A: In accordance to the relationship between sample size and estimate accuracy, I learned that the higher the sample size, the better estimated accuracy you're gonna get. 
+
+How does random sampling introduce variation into statistical estimates?
+
+A: Random sampling introduced variation into statistical estimates because there are over 100 different pieces of data of red M&Ms in the data set itself. If we were to ask to have random samples of 5 and 10 pieces of data, that means there are still 95 and 90 pieces of red M&M data that are not in the sample. There are so many different variations that can be possible in statistical estimates in this process. 
+
+If you repeated this process, would the samples always be identical? Why or why not?
+
+A: No, I do not believe the samples would always be identical. This is because of the same point I gave in the previous answer. If we kept repeated the sample process with a sample of 5 or 10 pieces of data, that means there are still 90 or 95 different pieces of data that could randomly be chosen from in any variation. 
+
+When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
