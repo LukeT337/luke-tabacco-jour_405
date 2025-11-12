@@ -1,19 +1,27 @@
 ---
-title: "R Notebook"
+title: "Final Project - Part 1"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-plot(cars)
+library(tidyverse)
 ```
+```{r}
+tuition_statistics <- read_csv("https://raw.githubusercontent.com/wellsdata/Jour405_student_repo_fall_2025/refs/heads/main/project/college_scorecard_2021_2024.csv") 
+```
+Direct link to the data descriptions:https://cran.r-project.org/web/packages/collegeScorecard/collegeScorecard.pdf
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+Direct source link: https://collegescorecard.ed.gov/
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+What does it contain and what time period does it cover?
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+ANSWER: The data contains 255 different universities, providing various years of data throughout. Each university is provided with data such as the state in which the university resides. Furthermore, each data set for the universities provide the in-state tuition fee, out-of-state tuition fee, and the total undergraduate enrollment for the school years 2021-2022, 2022-2023, and 2023-2024. 
+
+Which columns will be most important for your analysis?
+
+ANSWER: The columns that are going to be most important toward my analysis are honestly all of them. I am going to be deep diving into how the differences of in-state and out-of-state tuition fees affect the total enrollment of different universities. So, all of the data columns that have been provided are going to be an important factor in terms of my analysis. The only one that I probably won't dive too deep are the states in which the universities reside. 
+
+What's missing that you might need or want?
+
+ANSWER: Honestly, something that is missing that I might want to include is data about the specific in and out of state tuition enrollments. More specifically, I would really like to have data about who in terms of the total enrollment are in-state, vs who is out-of-state. 
 
