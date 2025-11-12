@@ -3,6 +3,8 @@ title: "Final Project - Part 1"
 output: html_notebook
 ---
 
+Luke Tabacco
+
 ```{r}
 library(tidyverse)
 ```
@@ -24,4 +26,67 @@ ANSWER: The columns that are going to be most important toward my analysis are h
 What's missing that you might need or want?
 
 ANSWER: Honestly, something that is missing that I might want to include is data about the specific in and out of state tuition enrollments. More specifically, I would really like to have data about who in terms of the total enrollment are in-state, vs who is out-of-state. 
+
+Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          min_stats = min(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          max_stats = max(`2023_24_undergrad_enrollment`, na.rm = TRUE)
+              )
+```
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          min_stats = min(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          max_stats = max(`2023_24_tuitionfee_in`, na.rm = TRUE)
+              )
+```
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          min_stats = min(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          max_stats = max(`2023_24_tuitionfee_out`, na.rm = TRUE)
+              )
+```
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          min_stats = min(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          max_stats = max(`2022_23_undergrad_enrollment`, na.rm = TRUE)
+              )
+```
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          min_stats = min(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          max_stats = max(`2022_23_tuitionfee_in`, na.rm = TRUE)
+              )
+```
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          min_stats = min(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          max_stats = max(`2022_23_tuitionfee_out`, na.rm = TRUE)
+              )
+```
+
+Newsworthy Hypothesis Proposal:
+
+ANSWER: Lower out of state tuition fees lead to higher enrollment totals, thus giving more enrollment money after. 
+
+Questions that I might have:
+
+ANSWER: The two major questions that I do have are if there is data that goes beyond 2021-22? Also, how should I really go about data that is not available in the graph? All in all, as an out of state student at UMD, granted that I was lucky enough to be granted a merit scholarship, I wonder how many students that had the academics to come to UMD couldn't because of out-of-state tuition prices being so high. How is enrollment decided? How does out of state compared to in state? And does it have a direct connection to enrollment? I would also really like to know what percentage of the total enrollment at these schools are in state, vs the ones that are out of state. 
 
