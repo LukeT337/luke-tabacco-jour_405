@@ -37,6 +37,9 @@ tuition_statistics |>
           max_stats = max(`2023_24_undergrad_enrollment`, na.rm = TRUE)
               )
 ```
+
+-> Why I calculated this and its importance at the bottom after all the calculations are done!
+
 ```{r}
 tuition_statistics |>
   summarize(mean_stats = mean(`2023_24_tuitionfee_in`, na.rm = TRUE),
@@ -45,6 +48,7 @@ tuition_statistics |>
           max_stats = max(`2023_24_tuitionfee_in`, na.rm = TRUE)
               )
 ```
+-> Why I calculated this and its importance at the bottom after all the calculations are done!
 
 ```{r}
 tuition_statistics |>
@@ -55,6 +59,8 @@ tuition_statistics |>
               )
 ```
 
+-> Why I calculated this and its importance at the bottom after all the calculations are done!
+
 ```{r}
 tuition_statistics |>
   summarize(mean_stats = mean(`2022_23_undergrad_enrollment`, na.rm = TRUE),
@@ -64,6 +70,8 @@ tuition_statistics |>
               )
 ```
 
+-> Why I calculated this and its importance at the bottom after all the calculations are done!
+
 ```{r}
 tuition_statistics |>
   summarize(mean_stats = mean(`2022_23_tuitionfee_in`, na.rm = TRUE),
@@ -72,6 +80,7 @@ tuition_statistics |>
           max_stats = max(`2022_23_tuitionfee_in`, na.rm = TRUE)
               )
 ```
+-> Why I calculated this and its importance at the bottom after all the calculations are done!
 
 ```{r}
 tuition_statistics |>
@@ -81,14 +90,60 @@ tuition_statistics |>
           max_stats = max(`2022_23_tuitionfee_out`, na.rm = TRUE)
               )
 ```
+What did I just calculate, and why is it important?
+
+ANSWER: I calculated the mean, standard deviation, minimum and maximum of undergraduate enrollment statistics from the 2023-24 school year, as well as in and out of state tuition fees. I did the exact same thing for the 2022-23 school year as well. This is going to be important because I am going to use all of this information to help determine my hypothesis of whether or not out of state tuition fees directly affect enrollment at universities. Finding the means of this data will help me get a gauge of all the schools clearly. 
 
 Newsworthy Hypothesis Proposal:
 
 ANSWER: Lower out of state tuition fees lead to higher enrollment totals, thus giving more enrollment money after. 
 
+null hypothesis: The mean undergraduate enrollment is the same when comparing colleges with below the median out-of-state tuition vs. colleges that are above the median out-of-state tuition. 
+
+Alternative hypothesis: The mean undergraduate enrollment increases when schools have out-of-state tuition lower than the media, rather than school with out-of-state tuition higher than the median. 
+
+
 Questions that I might have:
 
 ANSWER: The two major questions that I do have are if there is data that goes beyond 2021-22? Also, how should I really go about data that is not available in the graph? All in all, as an out of state student at UMD, granted that I was lucky enough to be granted a merit scholarship, I wonder how many students that had the academics to come to UMD couldn't because of out-of-state tuition prices being so high. How is enrollment decided? How does out of state compared to in state? And does it have a direct connection to enrollment? I would also really like to know what percentage of the total enrollment at these schools are in state, vs the ones that are out of state. 
 
+Test Number One: One Sample t-test
 
-FINAL CORRECT ONE
+```{r}
+overall_mean <- tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_undergrad_enrollment`, na.rm = TRUE)
+  )
+```
+
+```{r}
+alpha_level <- 0.05 
+
+
+t_test_result <- t.test(
+  tuition_statistics$`2023_24_undergrad_enrollment`,
+  mu = 2980,
+  alternative = "greater"
+)
+
+t_test_result
+```
+
+Test Number Two: Correlation test with a Scatter Plot
+
+```{r}
+tuition_statistics |> summarize(correlation = cor(`2023_24_tuitionfee_out`,`2023_24_undergrad_enrollment`, method="pearson", use = "complete.obs"))
+```
+
+```{r}
+
+tuition_statistics |> 
+  ggplot() +
+  geom_point(aes(x=`2023_24_tuitionfee_out`, y=`2023_24_undergrad_enrollment`)) +
+  geom_smooth(aes(x=`2023_24_tuitionfee_out`, y=`2023_24_undergrad_enrollment`), method="lm") +
+  expand_limits(x = 0, y = 0)
+
+```
+
+Explanation of the data: 
+
+For starters, I decided that my first test for the second part of the project was going to be a t-test. I wanted it to be a t-test so I can accurately determine if there is a relationship for what I was trying to prove in my hypothesis, which is that schools with a higher out of state tuition have less enrollment. A t test was going to help me prove for or against my hypothesis because a t-test helps to prove whether or not there was actually any significance between out-of-state tuition and enrollment in the 2023-24 school year. Then, getting a p-value was going to help me see if the answer I got just happened to be by random chance. The second test that I completed was a correlation test. I wanted to do a correlation test because it was going to tell me the linear relationship between the two variables I am testing: out-of-state tuition and enrollment. Now, let's look at the data starting with the correlation test. After, completing the test, I got a correlation of 0.08. This immediately to me pointed out that there was NOT a linear relationship between the two variables I was testing in my hypothesis. Next, looking at my t-test, I obtained a p-value of 0.499. This also immediately indicated to me that there was zero statistical significance at all the there is a true relationship between out-of-state tuition and enrollment, proving my alternate hypothesis to be wrong. 
