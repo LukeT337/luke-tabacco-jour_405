@@ -119,6 +119,7 @@ model <- lm(`2023_24_undergrad_enrollment` ~ `2023_24_tuitionfee_out`,
 cat("\n\nRegression Results:\n")
 print(summary(model))
 ```
+
 ```{r}
 # Create regression equation text
 eq_text <- sprintf("Enrollment = %.4f + %.4f * Tuition", 
