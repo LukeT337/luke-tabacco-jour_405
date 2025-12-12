@@ -1,0 +1,173 @@
+---
+title: "Final Project - Part 1"
+output: html_notebook
+---
+
+Luke Tabacco
+
+```{r}
+library(tidyverse)
+```
+```{r}
+tuition_statistics <- read_csv("https://raw.githubusercontent.com/wellsdata/Jour405_student_repo_fall_2025/refs/heads/main/project/college_scorecard_2021_2024.csv") 
+```
+Direct link to the data descriptions:https://cran.r-project.org/web/packages/collegeScorecard/collegeScorecard.pdf
+
+Direct source link: https://collegescorecard.ed.gov/
+
+What does it contain and what time period does it cover?
+
+ANSWER: The data contains 255 different universities, providing various years of data throughout. Each university is provided with data such as the state in which the university resides. Furthermore, each data set for the universities provide the in-state tuition fee, out-of-state tuition fee, and the total undergraduate enrollment for the school years 2021-2022, 2022-2023, and 2023-2024. 
+
+Which columns will be most important for your analysis?
+
+ANSWER: The columns that are going to be most important toward my analysis are honestly all of them. I am going to be deep diving into how the differences of in-state and out-of-state tuition fees affect the total enrollment of different universities. So, all of the data columns that have been provided are going to be an important factor in terms of my analysis. The only one that I probably won't dive too deep are the states in which the universities reside. 
+
+What's missing that you might need or want?
+
+ANSWER: Honestly, something that is missing that I might want to include is data about the specific in and out of state tuition enrollments. More specifically, I would really like to have data about who in terms of the total enrollment are in-state, vs who is out-of-state. 
+
+Select a relevant column and produce basic descriptive statistics on the mean, median, lowest and highest values. 
+
+What am I calculating, and why is it important?
+
+ANSWER: I calculated the mean, standard deviation, minimum and maximum of undergraduate enrollment statistics from the 2023-24 school year, as well as in and out of state tuition fees. I did the exact same thing for the 2022-23 school year as well. This is going to be important because I am going to use all of this information to help determine my hypothesis of whether or not out of state tuition fees directly affect enrollment at universities. Finding the means of this data will help me get a gauge of all the schools clearly. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          min_stats = min(`2023_24_undergrad_enrollment`, na.rm = TRUE),
+          max_stats = max(`2023_24_undergrad_enrollment`, na.rm = TRUE)
+              )
+```
+
+-> To start, I tested the mean, standard deviation, minimum and maximum of 2023-2024 undergraduate enrollment across universities. Overall, there was a span of enrollment as wide as 2-50,059 people. The mean is 2980.12 and the standard deviation is 6919.854. This is telling me that my data is very spread apart from each other and widely skewed. For example, the max of 50,059 is over seven standard deviations away from the mean. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          min_stats = min(`2023_24_tuitionfee_in`, na.rm = TRUE),
+          max_stats = max(`2023_24_tuitionfee_in`, na.rm = TRUE)
+              )
+```
+-> The second test that I completed was looking at the minimum, maximum, standard deviation and mean of in-state tuition fee from 2023-2024. There was a minimum tuition fee of $3,314 and a max of $64,525. The mean tuition fee was $17,898.15 with a standard deviation of 14,060.21. Looking at the mean, it is telling us that it’s closer to the minimum than the maximum tuition fee, meaning that there might be more schools offering lower tuition fees than high. But, like the previous data, the standard deviation is high indicating that there is a big range of in state tuition fees.  
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          sd_stats = sd(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          min_stats = min(`2023_24_tuitionfee_out`, na.rm = TRUE),
+          max_stats = max(`2023_24_tuitionfee_out`, na.rm = TRUE)
+              )
+```
+
+-> Compared to the previous one, this is now testing the out-of-state tuition fees in 2023-2024. There is a minimum fee of $6,660 and a maximum fee of $64,525. The mean tuition fee is $22,121.84 with a standard deviation of 13,710.84. Right off the jump, I notice that the minimum out-of-state tuition fee is higher than the in-state tuition fee for 2023-2024. I also notice that the mean is almost $5,000 dollars higher. The max tuition fees are actually exactly the same. The standard deviation for out-of-state tuition fee is also lower than in-state tuition. This tells me that there is less variability out of state, further making me notice that it is more consistently higher than in-state tuition rates. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          min_stats = min(`2022_23_undergrad_enrollment`, na.rm = TRUE),
+          max_stats = max(`2022_23_undergrad_enrollment`, na.rm = TRUE)
+              )
+```
+
+-> Now, let’s go back a school year with these next three findings. I am not calculating the mean, standard deviation, maximum, and minimum for undergraduate enrollment in 2022-2023. There was a minimum of 2 and a maximum of 48,408. There was a mean enrollment of 2929.488 people with a standard deviation of 6,740.324. Comparing this to the 2023-24 enrollment, the minimums remained the same but the maximum decreased from 50,059 to 48,408. Furthermore, the mean and standard deviation did not differ too much. The mean moved from 2,980.12 to 2929.488, and the standard deviation went from 6,919.854 to 6,740.324. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          min_stats = min(`2022_23_tuitionfee_in`, na.rm = TRUE),
+          max_stats = max(`2022_23_tuitionfee_in`, na.rm = TRUE)
+              )
+```
+-> The next test now looks at the in-state tuition fees for 2022-2023. There was a minimum tuition fee of $3,314 and a maximum fee of $61,750. The mean tuition fee for in-state students was $17,710.9 with a standard deviation of 13,759.63.Looking back at in-state tuition fees now for 2023-2024 and comparing the two school years, the minimum tuition fee was exactly the same, but the maximum tuition fee was greater in 2023-24 than it was in 2022-23 (61,750 in 2022-23 and 64,525 in 2023-24). The mean tuition fee also was lower in 2022-23 coming in at $17,710.9. And finally, the data was less spread out as there was a smaller standard deviation. 
+
+```{r}
+tuition_statistics |>
+  summarize(mean_stats = mean(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          sd_stats = sd(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          min_stats = min(`2022_23_tuitionfee_out`, na.rm = TRUE),
+          max_stats = max(`2022_23_tuitionfee_out`, na.rm = TRUE)
+              )
+```
+-> The final calculation tests the out-of-state tuition fee for 2022-2023. There was a minimum tuition of $6,660 and a maximum tuition of $61,750. The mean out-of-state tuition fee was $21,914.76 with a standard deviation of 13,267.83. First, comparing this data to the in-state tuition fee for 2022-2023, just as the 2023-2024 data set, the maximum tuition remained the same, but the minimum tuition fee increased. The mean tuition fee also jumped from $17,710.9 to $21,914.76, a very similar trend to the data comparing in and out of state tuition fees for 2023-2024. Finally, just as it did for 2023-2024, the standard deviation is lower for out-of-state tuition than for in-state, indicating less variability and more stagnant evidence of higher out of state tuition. 
+
+Newsworthy Hypothesis Proposal:
+
+ANSWER: Lower out of state tuition fees lead to higher enrollment totals, thus giving more enrollment money after. 
+
+null hypothesis: The mean undergraduate enrollment is the same when comparing colleges with below the median out-of-state tuition vs. colleges that are above the median out-of-state tuition. 
+
+Alternative hypothesis: The mean undergraduate enrollment increases when schools have out-of-state tuition lower than the media, rather than school with out-of-state tuition higher than the median. 
+
+
+Questions that I might have:
+
+ANSWER: The two major questions that I do have are if there is data that goes beyond 2021-22? Also, how should I really go about data that is not available in the graph? All in all, as an out of state student at UMD, granted that I was lucky enough to be granted a merit scholarship, I wonder how many students that had the academics to come to UMD couldn't because of out-of-state tuition prices being so high. How is enrollment decided? How does out of state compared to in state? And does it have a direct connection to enrollment? I would also really like to know what percentage of the total enrollment at these schools are in state, vs the ones that are out of state. 
+
+Test Number One: Linear Regression Model
+
+```{r}
+model <- lm(`2023_24_undergrad_enrollment` ~ `2023_24_tuitionfee_out`,
+            data = tuition_statistics)
+
+cat("\n\nRegression Results:\n")
+print(summary(model))
+```
+```{r}
+# Create regression equation text
+eq_text <- sprintf("Enrollment = %.4f + %.4f * Tuition", 
+                   coef(model)[1], coef(model)[2])
+
+
+ggplot(tuition_statistics, aes(x = `2023_24_tuitionfee_out`, y = `2023_24_undergrad_enrollment`)) +
+  geom_point(color = "darkblue", size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 1) +
+  labs(
+    x = "2023-24 Out-Of-State Tuition",
+    y = "2023-2024 College Enrollment",
+    title = "Testing Out-Of-State Tuition vs. Enrollment Linear Regression"
+  ) +
+  annotate("text", x = min(tuition_statistics$`2023_24_tuitionfee_out`), y = max(tuition_statistics$`2023_24_undergrad_enrollment`), 
+           label = eq_text, hjust = 0, vjust = 1, size = 4) +
+  theme_minimal()
+
+```
+
+-> In my linear regression test, I tested my hypothesis of whether or not out-of-state enrollment directly or indirectly predicts enrollment. I used the 2023-2024 enrollment statistics as my dependent variable, and I used the out-of-state tuition rates for the 2023-2024 school years as my independent variable, or as the predictor. This linear regression test will tell me whether or not there is a direct relationship between out-of-state tuition and whether or not increasing this has a direct relationship with enrollment status across all universities. Now, looking at the test itself, I can confidently say that there is no real relationship between out-of-state tuition and enrollment, more specifically for the 2023-2024 school year based on my findings. Furthermore, this means that I prove my null hypothesis to be true and my alternate hypothesis to be false. Looking at the data, the first piece of information that stood out to me was the coefficient estimate of `2023_24_tuitionfee_out.` In other words, after doing a little research, I learned that this number of 4.602e-02, or in an easier manner 0.046, means that every time a single dollar amount of out-of-state tuition (2023-24) increases, 2023-24 enrollment will increase by 0.046 of a student. That does not sound too high at all. Now, looking deeper into the data, the multiple r-squared value is 0.006855. This instantly tells me that out-of-state tuition rates have the smallest effect on enrollment, further proving my alternate hypothesis false. Finally, looking at the p-value to determine whether or not this data is statistically significant, a value of 0.3256 also tells me that this is not statistically significant at all. Even looking at the model, the line is the slightest positive but not nearly as much to actually prove against my hypothesis. All in all, this linear regression model showed me that I cannot reject my null hypothesis. 
+
+Test Number Two: Correlation test with a Scatter Plot
+
+```{r}
+tuition_statistics |> summarize(correlation = cor(`2023_24_tuitionfee_out`,`2023_24_undergrad_enrollment`, method="pearson", use = "complete.obs"))
+```
+
+```{r}
+
+tuition_statistics |> 
+  ggplot() +
+  geom_point(aes(x=`2023_24_tuitionfee_out`, y=`2023_24_undergrad_enrollment`)) +
+  geom_smooth(aes(x=`2023_24_tuitionfee_out`, y=`2023_24_undergrad_enrollment`), method="lm") +
+  expand_limits(x = 0, y = 0)
+
+```
+
+Correlation test with a Scatter Plot Explanation: 
+
+-> The second test that I completed was a correlation test. I wanted to do a correlation test because it was going to tell me the linear relationship between the two variables I am testing: out-of-state tuition and enrollment. Now, let's look at the data starting with the correlation test. After, completing the test, I got a correlation of 0.08. This immediately to me pointed out that there was NOT a linear relationship between the two variables I was testing in my hypothesis. 
+
+Final Story Pitch: 
+
+Even though out of state tuition is consistently higher than in-state tuition, there still doesn’t seem to be any relationship between out-of-state tuition rate and overall student enrollment. 
+
+Starting back at the beginning of the data just calculating the mean, minimum, maximum and standard deviation of student enrollment, in-state tuition and out-of-state tuition for both 2022-23 and 2023-24, I instantly noticed that out-of-state tuition consistently was greater than in-state. There is a $4223.69 increase in mean tuition out-of-state vs. in-state. Not only this, but the minimum tuition is $3,346 greater out-of-state. And finally, the standard deviation is lower for out-of-state tuition. This was a big finding for me because it helped me realize that this is more consistent, and has less variability. All of these initial factors, plus the curiosity I always had being an out-of-state student here at the University of Maryland made me want to test whether or not there actually was a direct connection between out-of-state tuition and student enrollment. 
+
+But, after completing the linear regression model and analysis, as well as the correlation between out-of-state tuition and student enrollment for the 2023-2024 school year, I can confidently say that my curiosity was not backed by evidence as there seemed to be little to no relationship between out-of-state tuition and student enrollment. For starters, the linear regression model saw a Multiple R-Squared value of 0.006855 and a slope of 4.602e-02, all tied together with a p-value of 0.3256 proving to me that this relationship was absolutely not statistically significant. Moving on to the correlation test, a total correlation of 0.08279307, meaning that there’s the slightest of a positive relationship on a linear graph, further proved to me that there isn’t enough statistical proof to deem there a true connection or relationship between out-of-state tuition fees and student enrollment. 
+
+Now, there definitely are some potential problems that could come with this statistical data. For starters, I am only using a year's worth of data. All of the data coming from my linear regression analysis and my correlation test is out-of-state tuition fees and student enrollment data for the 2023-2024 school year. To further pursue this story, I would definitely like to further expand deeper to previous years to see if my answers stay consistent, or if maybe there is a possible relationship between the two. 
+
+So, all in all, to give a reporting plan for this story pitch, I would first try and talk to different offices of student enrollment at various universities, making sure they all differ in enrollment size as the standard deviation earlier showed a lot of variation in enrollment (2023-2024 enrollment standard deviation was 6919.854), and ask them questions about out-of-state tuition rates and if they've noticed any effects on their enrollment. Furthermore, if I did decide to pursue this story, I would either focus on a single school, or every university. If I decided for example to test the in vs out of state tuition fees for the University of Maryland, some further research and information that I would try to find would be in-state enrollment, and out-of-state enrollment. Furthermore, on a larger scale looking at every university, I would for starters try and find more data going back further than 2022-2023. I would also take the same approach as the University of Maryland example in trying to find what percent of enrolled students are in-state vs. out-of-state. All in all, with all this data, I feel like I would be able to write a really interesting story diving into whether or not there is truly a connection between enrollment and out-of-state tuition fees across colleges. 
