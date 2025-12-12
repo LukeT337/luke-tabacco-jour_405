@@ -8,6 +8,7 @@ Luke Tabacco
 ```{r}
 library(tidyverse)
 ```
+
 ```{r}
 tuition_statistics <- read_csv("https://raw.githubusercontent.com/wellsdata/Jour405_student_repo_fall_2025/refs/heads/main/project/college_scorecard_2021_2024.csv") 
 ```
